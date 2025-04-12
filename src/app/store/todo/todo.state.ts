@@ -13,10 +13,8 @@ import { AddTodo } from './todo.actions';
 export class TodoState {
 
   @Selector()
-  static async items(state: Promise<TodoStateModel>) {
-    const tmp = await state;
-    
-    return tmp?.items ?? null;
+  static items(state: Promise<TodoStateModel>) {
+    return state.then(model => model.items)
   }
 
   @Action(AddTodo)

@@ -20,7 +20,7 @@ export class AppComponent {
   constructor(private store: Store) {}
 
   async ngOnInit() {
-    this.items$ = await firstValueFrom(this.store.select(TodoState.items));
+    this.items$ = await this.store.selectSignal(TodoState.items)();
     console.log(this.items$)
   }
 
