@@ -1,5 +1,5 @@
 import { CommonModule } from '@angular/common';
-import { Component } from '@angular/core';
+import { Component, inject } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { Store } from '@ngxs/store';
 import { Observable, firstValueFrom } from 'rxjs';
@@ -15,12 +15,11 @@ import { TodoState } from './store/todo/todo.state';
 })
 export class AppComponent {
   newTitle = 'ngxs-todo';
-  items$;
+  items$ = inject(Store).selectSignal(TodoState.items)();
 
   constructor(private store: Store) {}
 
   async ngOnInit() {
-    this.items$ = await this.store.selectSignal(TodoState.items)();
     console.log(this.items$)
   }
 
