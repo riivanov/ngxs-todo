@@ -13,29 +13,31 @@ import { AddTodo } from './todo.actions';
 export class TodoState {
 
   @Selector()
-  static items(state: TodoStateModel) {
-    // if (state instanceof Promise) return state.then(state => state?.items);
+  static async items(state: TodoStateModel) {
+    if (state instanceof Promise) {
+      state = await state
+    }
     return state?.items;
   }
 
   @Action(AddTodo)
   async addTodo(ctx: StateContext<TodoStateModel>, action: AddTodo) {
     const state = await ctx.getState();
-    if (!state) {
-      ctx.setState({
-        items: []
-      })
-      return;
-    }
     const length = state?.items?.length ?? 0;
-
-    console.log("Add TODO", state)
     const newItem = {
       order: length + 1,
       title: action?.title,
       description: '',
       isActive: true,
     };
+    if (!state) {
+      ctx.setState({
+        items: [newItem]
+      })
+      return;
+    }
+
+    console.log("Add TODO", state)
 
     ctx.setState({
       ...state,

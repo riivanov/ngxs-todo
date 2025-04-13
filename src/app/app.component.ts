@@ -25,7 +25,7 @@ export class AppComponent {
     //   .subscribe(
     //     (val) => (this.items$ = this.store.select(TodoState.items))
     //   );
-    console.log(this.items$);
+    // console.log(this.items$);
   }
 
   async add() {

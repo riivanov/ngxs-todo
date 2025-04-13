@@ -18,7 +18,8 @@ export class MyStorageEngine implements StorageEngine {
   async getItem(key: string) {
     console.log('getItem', key);
     const tmp = await get(key);
-    return JSON.parse(tmp);
+    if (!tmp) return
+    return JSON.parse(tmp)
   }
 
   async setItem(key: string, value: any) {
