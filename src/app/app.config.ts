@@ -18,7 +18,7 @@ export class MyStorageEngine implements StorageEngine {
   async getItem(key: string) {
     console.log('getItem', key);
     const tmp = await get(key);
-    return tmp;
+    return JSON.parse(tmp);
   }
 
   async setItem(key: string, value: any) {
@@ -37,7 +37,8 @@ export const appConfig: ApplicationConfig = {
           if (!obj) return;
           const tmp = await obj;
           console.log('deserialize', tmp);
-          return JSON.parse(tmp);
+          if (!tmp) return;
+          return tmp;
         },
       })
     ),

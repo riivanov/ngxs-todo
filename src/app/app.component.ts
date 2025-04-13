@@ -1,9 +1,7 @@
 import { CommonModule } from '@angular/common';
 import { Component, inject } from '@angular/core';
 import { FormsModule } from '@angular/forms';
-import { Store } from '@ngxs/store';
-import { Observable, firstValueFrom } from 'rxjs';
-import { TodoStateModel } from './store/todo/todo-state.model';
+import { Actions, ofActionSuccessful, Store } from '@ngxs/store';
 import { AddTodo } from './store/todo/todo.actions';
 import { TodoState } from './store/todo/todo.state';
 
@@ -15,12 +13,19 @@ import { TodoState } from './store/todo/todo.state';
 })
 export class AppComponent {
   newTitle = 'ngxs-todo';
-  items$ = inject(Store).selectSignal(TodoState.items)();
+  items$ = inject(Store).selectSignal(TodoState.items);
+  actions$ = inject(Actions);
 
-  constructor(private store: Store) {}
+  constructor(private store: Store) {
+  }
 
   async ngOnInit() {
-    console.log(this.items$)
+    // this.actions$
+    //   .pipe(ofActionSuccessful(AddTodo))
+    //   .subscribe(
+    //     (val) => (this.items$ = this.store.select(TodoState.items))
+    //   );
+    console.log(this.items$);
   }
 
   async add() {
@@ -31,8 +36,8 @@ export class AppComponent {
 
   changeDescription(title: string, order: number) {}
 
-  public  log(obj) {
-    console.log(obj)
-    return obj
+  public log(obj) {
+    console.log(obj);
+    return obj;
   }
 }

@@ -13,11 +13,11 @@
 
   <div class="form-inline">
     <ul class="list-group list-group-flush mt-3">
+      {{ log(items$) | json }}
       <li
-        *ngFor="let item of items$ | async; let idx = index"
+        *ngFor="let item of items$(); let idx = index"
         class="list-group-item m-0 p-0"
       >
-      {{ log(item) }}
         <input
           type="email"
           class="form-control mb-1"

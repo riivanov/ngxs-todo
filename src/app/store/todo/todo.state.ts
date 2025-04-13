@@ -13,8 +13,9 @@ import { AddTodo } from './todo.actions';
 export class TodoState {
 
   @Selector()
-  static items(state: Promise<TodoStateModel>) {
-    return state.then(model => model.items)
+  static items(state: TodoStateModel) {
+    // if (state instanceof Promise) return state.then(state => state?.items);
+    return state?.items;
   }
 
   @Action(AddTodo)
